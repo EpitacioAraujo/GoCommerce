@@ -1,9 +1,8 @@
-import {Router} from 'express';
+import { Router } from 'express';
+import { DescriptionController } from '../controllers/DescriptionController';
 
 const routes = Router();
 
-routes.get('/ola', (Request, Response) => {
-    return Response.json({title: "Olá mundo"})
-});
+routes.post('/description', new DescriptionController().create);
 
 export default routes;
