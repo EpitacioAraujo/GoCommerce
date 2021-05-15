@@ -1,7 +1,9 @@
 import { Entity, PrimaryColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 import { v4 as uuid} from 'uuid';
 
-@Entity()
+@Entity({
+    name: "descriptions"
+})
 class Description{
     @PrimaryColumn()
     id: String
