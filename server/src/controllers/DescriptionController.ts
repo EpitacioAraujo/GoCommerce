@@ -1,24 +1,18 @@
 import { Request, Response } from 'express';
-import { getCustomRepository } from 'typeorm';
-import { DescriptionRepository } from './../database/repositories/DescriptionRepository';
+import { DescriptionService } from '../services/DescriptionService';
 
 class DescriptionController{
     async create(Request: Request, Response: Response){
-        const descriptionRepository = getCustomRepository(DescriptionRepository);
-        const description = descriptionRepository.create();
-        
         const { name } = Request.body;
 
-        description.name = name;
+        const descriptionService = new DescriptionService();
 
         try{
-            await descriptionRepository.save(description);
+            const description = await descriptionService.create({ name });
 
             return Response.status(201).json(description);
         }catch(err){
-            return Response.status(500).json({
-                message: "Internal error server!"
-            })
+            return Response.status(400).json({message: err.message})
         }
     }
 }
