@@ -1,5 +1,6 @@
-import { Entity, PrimaryColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import { Entity, PrimaryColumn, Column, CreateDateColumn, UpdateDateColumn, BeforeInsert, OneToMany } from 'typeorm';
 import { v4 as uuid} from 'uuid';
+import { Product } from './Product';
 
 @Entity({
     name: "descriptions"
@@ -17,10 +18,12 @@ class Description{
     @UpdateDateColumn()
     updated_at: Date
 
-    constructor(){
-        if(!this.id){
-            this.id = uuid();
-        }
+    @OneToMany(() => Product, product => product.description)
+    products: Product[]
+
+    @BeforeInsert()
+    addId(){
+        this.id = uuid()
     }
 }
 
