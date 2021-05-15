@@ -1,10 +1,11 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryColumn, UpdateDateColumn } from "typeorm";
+import { BeforeInsert, Column, CreateDateColumn, Entity, ManyToOne, PrimaryColumn, UpdateDateColumn } from "typeorm";
+import { v4 as uuid } from 'uuid';
 
 import { Description } from "./Description";
 import { Brand } from "./Brand";
 
 @Entity({
-    name: "Products"
+    name: "products"
 })
 class Product{
     @PrimaryColumn()
@@ -24,6 +25,11 @@ class Product{
 
     @ManyToOne(() => Brand, brand => brand.products)
     brand: Brand
+
+    @BeforeInsert()
+    addId(){
+        this.id = uuid();
+    }
 }
 
 export { Product }
