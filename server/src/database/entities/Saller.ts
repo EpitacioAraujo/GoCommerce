@@ -1,5 +1,6 @@
-import { BeforeInsert, Column, CreateDateColumn, Entity, PrimaryColumn, UpdateDateColumn } from "typeorm";
+import { BeforeInsert, Column, CreateDateColumn, Entity, OneToMany, PrimaryColumn, UpdateDateColumn } from "typeorm";
 import { v4 as uuid } from 'uuid';
+import { Purchase } from "./Purchase";
 
 @Entity({
     name: 'sallers'
@@ -16,6 +17,9 @@ class Saller{
 
     @UpdateDateColumn()
     updated_at: Date
+
+    @OneToMany(() => Purchase, purchase => purchase.saller)
+    purchases: Purchase[]
 
     @BeforeInsert()
     addId(){
