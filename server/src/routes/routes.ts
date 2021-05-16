@@ -20,6 +20,7 @@ routes.put('/brand/:id', new BrandController().update)
 //Products routes
 routes.post('/product', new ProductController().create)
 routes.get('/product/:id', new ProductController().read)
+routes.put('/product/:id', new ProductController().update)
 
 //Sallers routes
 routes.post('/saller', new SallerController().create)
