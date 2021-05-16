@@ -9,6 +9,7 @@ const routes = Router();
 
 //Descriptions Routes
 routes.post('/description', new DescriptionController().create);
+routes.get('/description/:id', new DescriptionController().read);
 
 //Brands routes
 routes.post('/brand', new BrandController().create);

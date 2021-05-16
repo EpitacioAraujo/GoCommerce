@@ -15,6 +15,23 @@ class DescriptionController{
             return Response.status(400).json({message: err.message})
         }
     }
+
+    async read(Request: Request, Response: Response){
+        const { id } = Request.params
+
+        const descriptionController = new DescriptionService()
+
+        try{
+            const description = await descriptionController.read({
+                id
+            })
+
+            return Response.status(200).json(description)
+        }catch(err){
+            return Response.status(404).json({message: err.message})
+        }
+
+    }
 }
 
 export { DescriptionController };

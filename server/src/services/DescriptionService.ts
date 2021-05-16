@@ -2,7 +2,10 @@ import { getCustomRepository } from "typeorm";
 import { DescriptionRepository } from "../database/repositories/DescriptionRepository";
 
 interface IDescriptionService {
-    name: String
+    id?: String
+    name?: String
+    created_at?: Date
+    updated_at?: Date
 }
 
 class DescriptionService{
@@ -22,6 +25,17 @@ class DescriptionService{
         await descriptionRepository.save(description); 
 
         return description;
+    }
+
+    async read({ id }: IDescriptionService){
+        const descriptionRepository = getCustomRepository(DescriptionRepository);
+
+        const description = await descriptionRepository.findOne({ where: { id } })
+
+        if(!description)
+            throw new Error("Description not found!")
+
+        return description
     }
 }
 
