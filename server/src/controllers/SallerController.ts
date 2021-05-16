@@ -17,6 +17,20 @@ class SallerController {
             })
         }
     }
+
+    async read(Request: Request, Response: Response){
+        const { id } = Request.params
+
+        const sallerService = new SallerService()
+
+        try{
+            const saller = await sallerService.read({ id })
+
+            return Response.status(200).json( saller )
+        }catch(err){
+            return Response.status(400).json({message: err.message})
+        }
+    }
 }
 
 export { SallerController }

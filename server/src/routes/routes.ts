@@ -21,7 +21,7 @@ routes.get('/product/:id', new ProductController().read)
 
 //Sallers routes
 routes.post('/saller', new SallerController().create)
-
+routes.get('/saller/:id', new SallerController().read)
 
 //Purchase routes
 routes.post('/purchase', new PurchaseController().create)
