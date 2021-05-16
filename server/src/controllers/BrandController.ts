@@ -15,6 +15,20 @@ class BrandController{
             return Response.status(401).json({message: err.message})
         }
     }
+
+    async read(Request: Request, Response: Response){
+        const { id } = Request.params
+
+        const brandService = new BrandService()
+
+        try{
+            const brand = await brandService.read({ id })
+
+            return Response.status(200).json( brand )
+        }catch(err){
+            return Response.status(400).json({message: err.message})
+        }
+    }
 }
 
 export { BrandController }

@@ -2,7 +2,8 @@ import { getCustomRepository } from "typeorm";
 import { BrandRepository } from "../database/repositories/BransRepository";
 
 interface IBrandService{
-    name: String;
+    id?: String
+    name?: String;
 }
 
 class BrandService{
@@ -20,6 +21,17 @@ class BrandService{
         await brandRepository.save(brand);
 
         return brand;
+    }
+
+    async read({id}: IBrandService){
+        const brandRepository = getCustomRepository(BrandRepository);
+
+        const brand = await brandRepository.findOne({ where: { id }})
+
+        if(!brand)
+            throw new Error ("Brand not found!")
+
+        return brand
     }
 }
 
