@@ -30,5 +30,6 @@ routes.put('/saller/:id', new SallerController().update)
 //Purchase routes
 routes.post('/purchase', new PurchaseController().create)
 routes.get('/purchase/:id', new PurchaseController().read)
+routes.put('/purchase/:id', new PurchaseController().update)
 
 export default routes;

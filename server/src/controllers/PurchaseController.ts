@@ -33,6 +33,26 @@ class PurchaseController {
             return Response.status(400).json({ message: err.message })
         }
     }
+
+    async update(Request: Request, Response: Response){
+        const { id } = Request.params
+        const { fk_id_product, fk_id_saller, price } = Request.body
+
+        const purchaseService = new PurchaseService()
+
+        try{
+            const purchase = await purchaseService.update({
+                id,
+                fk_id_product,
+                fk_id_saller,
+                price
+            })
+
+            return Response.status(201).json(purchase)
+        }catch(err){
+            return Response.status(401).json({message: err.message})
+        }
+    }
 }
 
 export { PurchaseController }
