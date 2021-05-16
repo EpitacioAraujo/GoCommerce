@@ -10,6 +10,7 @@ const routes = Router();
 //Descriptions Routes
 routes.post('/description', new DescriptionController().create)
 routes.get('/description/:id', new DescriptionController().read)
+routes.put('/description/:id', new DescriptionController().update)
 
 //Brands routes
 routes.post('/brand', new BrandController().create)
@@ -26,4 +27,5 @@ routes.get('/saller/:id', new SallerController().read)
 //Purchase routes
 routes.post('/purchase', new PurchaseController().create)
 routes.get('/purchase/:id', new PurchaseController().read)
+
 export default routes;

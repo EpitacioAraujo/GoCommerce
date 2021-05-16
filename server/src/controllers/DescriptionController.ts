@@ -19,10 +19,10 @@ class DescriptionController{
     async read(Request: Request, Response: Response){
         const { id } = Request.params
 
-        const descriptionController = new DescriptionService()
+        const descriptionService = new DescriptionService()
 
         try{
-            const description = await descriptionController.read({
+            const description = await descriptionService.read({
                 id
             })
 
@@ -30,7 +30,21 @@ class DescriptionController{
         }catch(err){
             return Response.status(404).json({message: err.message})
         }
+    }
 
+    async update(Request: Request, Response: Response){
+        const { id } = Request.params
+        const { name } = Request.body
+
+        const descriptionService = new DescriptionService()
+
+        try{
+            const description = await descriptionService.update({ id, name })
+
+            return Response.status(200).json(description)
+        }catch(err){
+            return Response.status(404).json({message: err.message})
+        }
     }
 }
 

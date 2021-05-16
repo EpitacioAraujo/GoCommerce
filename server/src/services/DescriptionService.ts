@@ -37,6 +37,19 @@ class DescriptionService{
 
         return description
     }
+
+    async update({id, name}: IDescriptionService){
+        const descriptionRepository = getCustomRepository(DescriptionRepository);
+
+        const description = await descriptionRepository.findOne({ where: { id }})
+
+        if(!description)
+            throw new Error("Description not found!")
+
+        description.name = name;
+
+        return await descriptionRepository.save(description)
+    }
 }
 
 export { DescriptionService }
