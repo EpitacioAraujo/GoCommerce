@@ -14,11 +14,13 @@ export class PurchaseRepository extends Repository<Purchase> {
                     + `    pr.id AS product, `
                     + `    pr.amount, `
                     + `    ds.name AS product, `
-                    + `    br.name AS brand `
+                    + `    br.name AS brand, `
+                    + `    sl.name AS saller `
                     + `FROM purchases AS pc `
                     + `LEFT JOIN products AS pr ON pr.id = pc.productId `
                     + `LEFT JOIN descriptions AS ds ON pr.descriptionId  = ds.id `
                     + `LEFT JOIN brands AS br ON pr.brandId = br.id `
+                    + `LEFT JOIN sallers AS sl ON pc.sallerId = sl.id  `
                     + `WHERE pc.id = '${id}' `
                     
         return await this.query( query )
