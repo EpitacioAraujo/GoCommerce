@@ -34,24 +34,13 @@ class PurchaseService {
     async read({id}: IPurchaseReadService){
         const purchaseRepository = getCustomRepository(PurchaseRepository)
 
-        const purchase = purchaseRepository.findOne({
-            where: {
-                id
-            },
-            join: {
-                alias: 'purchase',
-                leftJoinAndSelect: {
-                    product: 'purchase.product',
-                    saller: 'purchase.saller'
-                }
-            }
-        })
+        const purchase =  await purchaseRepository.findById({ id })
 
         if(!purchase)
             throw new Error("Purchase not found!")
 
         return purchase
-    }
+    }   
 }
 
 export { PurchaseService }
