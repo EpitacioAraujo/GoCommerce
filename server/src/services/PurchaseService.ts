@@ -9,6 +9,10 @@ interface IPurchaseService{
     price: Number
 }
 
+interface IPurchaseReadService{
+    id: String
+}
+
 class PurchaseService {
     async create({fk_id_product, fk_id_saller, price}: IPurchaseService){
         const purchaseRepository = getCustomRepository(PurchaseRepository)
@@ -25,6 +29,28 @@ class PurchaseService {
         })
 
         return await purchaseRepository.save(purchase)
+    }
+
+    async read({id}: IPurchaseReadService){
+        const purchaseRepository = getCustomRepository(PurchaseRepository)
+
+        const purchase = purchaseRepository.findOne({
+            where: {
+                id
+            },
+            join: {
+                alias: 'purchase',
+                leftJoinAndSelect: {
+                    product: 'purchase.product',
+                    saller: 'purchase.saller'
+                }
+            }
+        })
+
+        if(!purchase)
+            throw new Error("Purchase not found!")
+
+        return purchase
     }
 }
 
