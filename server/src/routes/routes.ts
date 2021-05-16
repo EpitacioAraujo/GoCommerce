@@ -15,6 +15,7 @@ routes.put('/description/:id', new DescriptionController().update)
 //Brands routes
 routes.post('/brand', new BrandController().create)
 routes.get('/brand/:id', new BrandController().read)
+routes.put('/brand/:id', new BrandController().update)
 
 //Products routes
 routes.post('/product', new ProductController().create)

@@ -33,6 +33,19 @@ class BrandService{
 
         return brand
     }
+
+    async update({id, name}: IBrandService){
+        const brandRepository = getCustomRepository(BrandRepository);
+
+        const brand = await brandRepository.findOne({ where: { id }})
+
+        if(!brand)
+            throw new Error ("Brand not found!")
+
+        brand.name = name
+
+        return await brandRepository.save(brand)
+    }
 }
 
 export { BrandService }
