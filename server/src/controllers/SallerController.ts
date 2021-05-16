@@ -31,6 +31,23 @@ class SallerController {
             return Response.status(400).json({message: err.message})
         }
     }
+
+    async update(Request: Request, Response: Response){
+        const { id } = Request.params
+        const { name } = Request.body
+        
+        const sallerService = new SallerService();
+
+        try{
+            const saller = await sallerService.update({ id, name });
+
+            return Response.status(201).json(saller)
+        }catch(err){
+            return Response.status(401).json({
+                message: err.message
+            })
+        }
+    }
 }
 
 export { SallerController }

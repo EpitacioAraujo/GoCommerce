@@ -25,6 +25,7 @@ routes.put('/product/:id', new ProductController().update)
 //Sallers routes
 routes.post('/saller', new SallerController().create)
 routes.get('/saller/:id', new SallerController().read)
+routes.put('/saller/:id', new SallerController().update)
 
 //Purchase routes
 routes.post('/purchase', new PurchaseController().create)

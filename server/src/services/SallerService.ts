@@ -2,11 +2,8 @@ import { SallerRepository } from "../database/repositories/SallerRepository"
 import { getCustomRepository } from 'typeorm';
 
 interface ISallerService{
-    name: String
-}
-
-interface ISallerReadService{
-    id: String
+    id?: String
+    name?: String
 }
 
 class SallerService {
@@ -24,7 +21,7 @@ class SallerService {
         return await sallerRepository.save(saller)
     }
 
-    async read({id}: ISallerReadService){
+    async read({id}: ISallerService){
         const sallerRepository = getCustomRepository(SallerRepository);
 
         const saller = await sallerRepository.findOne({ where: { id }})
@@ -33,6 +30,20 @@ class SallerService {
             throw new Error ("Saller not found!")
 
         return saller
+    }
+
+    async update({ id, name }: ISallerService){
+        const sallerRepository = getCustomRepository(SallerRepository)
+
+        const saller = await sallerRepository.findOne({where: { id }})
+
+        if(!saller){
+            throw new Error("Saller not found!")
+        }
+
+        saller.name = name || saller.name
+
+        return await sallerRepository.save(saller)
     }
 }
 
