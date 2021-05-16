@@ -22,6 +22,20 @@ class ProductController{
             })
         }
     }
+
+    async read(Request: Request, Response: Response){
+        const { id } = Request.params
+
+        const productService = new ProductService();
+
+        try{
+            const product = await productService.read({ id })
+
+            return Response.status(201).json(product)
+        }catch(err){
+            return Response.status(400).json({ message: err.message })
+        }
+    }
 }
 
 export { ProductController }

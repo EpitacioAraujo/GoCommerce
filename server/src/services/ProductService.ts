@@ -9,6 +9,10 @@ interface IProductService {
     amount: Number
 }
 
+interface IProductReadService {
+    id?: String
+}
+
 class ProductService{
     async create({fk_id_brand, fk_id_description, amount}: IProductService){
         const productRepository = getCustomRepository(ProductRepository)
@@ -36,6 +40,28 @@ class ProductService{
         })
         
         return await productRepository.save(product)
+    }
+
+    async read({id}: IProductReadService){
+        const productRepository = getCustomRepository(ProductRepository)
+
+        const product = productRepository.findOne({
+            where: {
+                id
+            },
+            join: {
+                alias: 'product',
+                leftJoinAndSelect: {
+                    brand: 'product.brand',
+                    description: 'product.description'
+                }
+            }
+        })
+
+        if(!product)
+            throw new Error("Product not found!")
+
+        return product
     }
 }
 

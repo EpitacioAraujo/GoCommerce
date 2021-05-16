@@ -8,15 +8,16 @@ import { SallerController } from '../controllers/SallerController';
 const routes = Router();
 
 //Descriptions Routes
-routes.post('/description', new DescriptionController().create);
-routes.get('/description/:id', new DescriptionController().read);
+routes.post('/description', new DescriptionController().create)
+routes.get('/description/:id', new DescriptionController().read)
 
 //Brands routes
-routes.post('/brand', new BrandController().create);
-routes.get('/brand/:id', new BrandController().read);
+routes.post('/brand', new BrandController().create)
+routes.get('/brand/:id', new BrandController().read)
 
 //Products routes
 routes.post('/product', new ProductController().create)
+routes.get('/product/:id', new ProductController().read)
 
 //Sallers routes
 routes.post('/saller', new SallerController().create)
